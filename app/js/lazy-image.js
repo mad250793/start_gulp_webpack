@@ -53,3 +53,8 @@ function lazyImg() {
             imageObserver.observe(element);
         }
     }
+
+//затем вызови эти функции
+lazy()
+lazyImg()
+
