@@ -1,5 +1,5 @@
 require('intersection-observer');
-
+IntersectionObserver.prototype.POLL_INTERVAL = 100; // Time in milliseconds.
 // для работы нужен div с класом lazy и с атрибутом data-src с путём до картинки ЕСЛИ ТЫ ИСПОЛЬЗУЕШЬ КАРТИНКУ ФОНОМ!
 // ЕСЛИ У ТЕБЯ ТЕГ img добавь scr="no-foto.svg" для всех картинок а в атрибут data-src вставь путь от оригинальной картинки!
 
