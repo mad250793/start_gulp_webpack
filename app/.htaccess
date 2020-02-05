@@ -1,0 +1,120 @@
+#Включает gzip на сервере Замени your-site на имя своего домена и удали все #
+
+
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{SERVER_PORT} !^443
+#RewriteRule (.*) https://your-site/$1 [R=301,L]
+
+#RewriteCond %{HTTP_HOST} .
+#RewriteCond %{HTTP_HOST} ^www.(.*)$ [NC]
+#RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+#RewriteRule ^index\.php$ https://your-site/ [R=301,L]
+
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index/\ HTTP/
+#RewriteRule ^index/$ https://your-site/ [R=301,L]
+
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+#RewriteRule ^index\.html$ https://your-site/ [R=301,L]
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+
+
+
+php_flag register_globals Off
+php_flag zlib.output_compression On
+php_value zlib.output_compression_level 5
+# ExpiresActive On
+# SetEnvIf brokenvary 1 force-no-vary
+
+
+<ifModule mod_expires.c>
+
+# Add correct content-type for fonts & SVG
+AddType application/font-woff2 .woff2
+AddType image/svg+xml .svg
+AddType text/cache-manifest .manifest
+
+ExpiresActive On
+ExpiresDefault "access plus 5 seconds"
+
+# Cache Images
+ExpiresByType image/x-icon "access plus 2592000 seconds"
+ExpiresByType image/jpeg "access plus 2592000 seconds"
+ExpiresByType image/png "access plus 2592000 seconds"
+ExpiresByType image/gif "access plus 2592000 seconds"
+ExpiresByType image/svg+xml "access plus 2592000 seconds"
+
+# Cache Fonts
+ExpiresByType application/font-woff2 "access plus 2592000 seconds"
+ExpiresByType image/svg+xml "access plus 2592000 seconds"
+
+# Cache other content types (CSS, JS, HTML, XML)
+ExpiresByType text/css "access plus 2592000 seconds"
+ExpiresByType text/javascript "access plus 2592000 seconds"
+ExpiresByType application/javascript "access plus 2592000 seconds"
+ExpiresByType application/x-javascript "access plus 2592000 seconds"
+ExpiresByType text/html "access plus 600 seconds"
+ExpiresByType application/xhtml+xml "access plus 600 seconds"
+
+
+ExpiresActive On
+ExpiresByType text/cache-manifest "access plus 0 seconds"
+
+
+</ifModule>
+
+
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript application/font-woff2 image/svg+xml
+
+
+
+AddHandler application/x-httpd-php .html
+AddHandler cgi-script .pl .py .jsp .asp .htm .shtml .sh .cgi
+AddType application/x-javascript .js
+AddType text/css .css
+AddType text/xml .xml
+AddType application/octet-stream .doc .mov .avi .pdf .xls 
+
+
+
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+Header set Strict-Transport-Security: "max-age=31557600 ; includeSubDomains ; preload" env=HTTPS 
+Header set Cache-Control "max-age=31557600, public , immutable"
+Header set X-XSS-Protection "1; mode=block"
+Header set Accept-Language: "ru"
+Header set X-Frame-Options SAMEORIGIN
+Header set X-Permitted-Cross-Domain-Policies "none"
+Header set X-Content-Type-Options nosniff
+
+Header set Server "No information"
+Header set X-Powered-By "No information"
+
+SetEnv TZ Europe/Moscow
+php_value	default_charset utf-8
+php_value	max_execution_time 200
+
+
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+Header set Cache-Control "max-age=31557600"
+</FilesMatch>
+
+
+
+
+#Защита сайта от вставки изображений с других ресурсов
+#Если вы хотите запретить добавление ссылок на изображения со сторонних ресурсов, добавьте в файл .htaccess код:
+
+#RewriteEngine on
+#RewriteCond %{HTTP_REFERER} !^$
+#RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?yourdomain.com [NC]
+#RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
+
+
+
