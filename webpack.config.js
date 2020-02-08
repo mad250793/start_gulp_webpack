@@ -16,7 +16,7 @@ module.exports = {
 
     output: {
         // Название итогового файла по дефу bandle.js
-        filename: '../build/scripts.min.js',
+        filename: '../build/app.min.js',
     },
     // devServer: {
     //   contentBase: path.join(__dirname, 'app'),
