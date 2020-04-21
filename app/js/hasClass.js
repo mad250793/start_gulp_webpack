@@ -11,3 +11,4 @@
 
 
 // }
+if (el.classList.contains("active") != true) {}
