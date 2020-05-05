@@ -4,12 +4,12 @@ function hasClass(el, cls) {
 }
 
 if (hasClass(lazyImage, "active")) {
-
-
+    
+    //ignore code
+    
 } else {
-
-    lazyImage.classList.add("active")
-
+    
+    elem.classList.add("active")
 
 }
 ///=======  2 варик ========
